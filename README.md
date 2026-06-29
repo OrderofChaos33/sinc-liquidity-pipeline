@@ -1,34 +1,23 @@
-# FINAL FIX - Create hardhat.config.cjs
+# STILL GETTING CONFIG ERROR? DO THIS
 
-The mv didn't work because the file might not exist or you're in a nested folder.
+The error is still seeing an old `hardhat.config.js`.
 
-## Do This Exactly (Copy & Paste These Commands)
+Run these commands in order:
 
 ```bash
-# 1. Delete any old config if it exists
-rm -f hardhat.config.js hardhat.config.cjs
+# Pull latest files from the repo (I added hardhat.config.cjs)
+git pull
 
-# 2. Create the correct config file (this one works with ESM)
-cat > hardhat.config.cjs << 'EOF'
-require("dotenv").config();
+# List what config files exist
+ls -la *.config.* package.json
 
-module.exports = {
-  solidity: "0.8.20",
-  networks: {
-    base: {
-      url: process.env.BASE_RPC || "https://mainnet.base.org",
-      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : []
-    }
-  }
-};
-EOF
+# Force remove any .js config
+rm -f hardhat.config.js
 
-# 3. Make sure .env exists with your key
-# (create it if missing)
-
+# Deploy again
 npx hardhat run scripts/deploy-simple.js --network base
 ```
 
-Run the block above. It will create the proper `hardhat.config.cjs` file and then deploy.
+If it still fails after this, paste the output of the `ls` command and the full error.
 
-This should finally work. Paste the output here.
+Also check if you have a package.json in C:\Users\cjay4\ that has "type": "module" — that can interfere.
