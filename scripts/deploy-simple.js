@@ -1,14 +1,12 @@
-// Simplified single-admin deployment for your wallet
-// Use this if you don't have multi-sig set up yet
-const { ethers } = require("hardhat");
+import hardhat from "hardhat";
+const { ethers } = hardhat;
 
 async function main() {
   const [deployer] = await ethers.getSigners();
   console.log("Deploying with:", deployer.address);
 
-  const YOUR_ADMIN = "0x09E2891432827D8835d2E9b83B25e2a5ba9612Ac"; // Your wallet
+  const YOUR_ADMIN = "0x09E2891432827D8835d2E9b83B25e2a5ba9612Ac";
 
-  // REAL BASE ADDRESSES
   const BASE_USDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
   const UNISWAP_V3_SWAP_ROUTER_02 = "0x2626664c2603336E57B271c5C0b26F421741e481";
   const CHAINLINK_ETH_USD_BASE = "0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70";
@@ -41,5 +39,10 @@ async function main() {
   await treasury.grantRole(await treasury.CONTROLLER_ROLE(), amm.address);
 
   console.log("\n=== DEPLOYED SUCCESSFULLY ===");
-  console.log("Use these addresses in your SINCOR integration");
+  console.log("Copy these addresses and use them in your SINCOR integration");
 }
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
