@@ -1,24 +1,23 @@
-# SINC Liquidity Pipeline - SIMPLE DEPLOY (Fixed for your error)
+# FIXED AGAIN - Hardhat Config Error
 
-I fixed the ESM error for you. Just run these exact commands in order.
+The new error is because your `hardhat.config.js` uses old `require()` syntax but the project is now ESM.
 
-## 1. Make sure you're in the right folder
-You are already in: `~/OneDrive/Desktop/RAIN/0-$/SINCOR2/sinc-liquidity-pipeline/sinc-liquidity-pipeline`
-
-## 2. Run these commands one by one
+## Exact Fix (Run These Commands)
 
 ```bash
-npm pkg set type="module"
+# Rename your config file to .cjs so it stays CommonJS
+mv hardhat.config.js hardhat.config.cjs
 
-npm install
+# Or if you're on Windows:
+# ren hardhat.config.js hardhat.config.cjs
 
 npx hardhat run scripts/deploy-simple.js --network base
 ```
 
-That's it. It should now deploy using your wallet `0x09E2891432827D8835d2E9b83B25e2a5ba9612Ac` as admin.
+This is the standard quick fix when migrating Hardhat projects.
 
-If it still complains, delete `node_modules` and `package-lock.json` then run `npm install` again.
+After running the above, it should deploy successfully using your wallet.
 
-After it finishes, it will print the new contract addresses. Paste them here and I'll give you the next exact steps (verify on Basescan, add liquidity, wire to your agents, etc.).
+If you get any other error, paste the full output here and I'll fix it immediately.
 
-I handled the code fixes. You just run the 3 lines above.
+We're very close now.
